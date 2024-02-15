@@ -1,5 +1,5 @@
 {
-  "name": "mighty-peach/react-confetti-explosion-lodashless",
+  "name": "mighty_peach/react-confetti-explosion",
   "version": "2.2.0",
   "author": "Ethan Herr <herrethan@gmail.com>",
   "description": "A lightweight css-animation based confetti exploder for React",
