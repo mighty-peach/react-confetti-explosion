@@ -1,5 +1,4 @@
 import * as React from 'react';
-import range from 'lodash/range';
 import { createPortal } from 'react-dom';
 import useStyles, { IParticle, IStyleClasses } from './styles';
 
@@ -25,7 +24,7 @@ export interface ConfettiProps extends Omit<React.HTMLAttributes<HTMLDivElement>
 
 const createParticles = (count: number, colors: string[]): IParticle[] => {
   const increment = 360 / count;
-  return range(count).map(index => ({
+  return Array.from({ length: count + 1 }, (_, index) => index).map(index => ({
     color: colors[index % colors.length],
     degree: increment * index,
   }));

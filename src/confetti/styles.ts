@@ -1,5 +1,4 @@
 import { createUseStyles } from 'react-jss';
-import round from 'lodash/round';
 
 import { coinFlip, mapRange, rotate, rotationTransforms, shouldBeCircle } from './utils';
 
@@ -43,10 +42,21 @@ const rotationKeyframes = rotationTransforms.reduce((acc, xyz, i) => {
   };
 }, {});
 
+const round = (num: number, precision: number) => {
+  const modifier = 10 ** precision;
+  return Math.round(num * modifier) / modifier;
+};
+
 const confettiKeyframes = (degrees: number[], height: number | string, width: number) => {
   const y = typeof height === 'string' ? height : `${height}px`;
   const xLandingPoints = degrees.reduce((acc, degree, i) => {
-    const landingPoint = mapRange(Math.abs(rotate(degree, 90) - 180), 0, 180, -width / 2, width / 2);
+    const landingPoint = mapRange(
+      Math.abs(rotate(degree, 90) - 180),
+      0,
+      180,
+      -width / 2,
+      width / 2
+    );
     return {
       ...acc,
       [`@keyframes x-axis-${i}`]: {
@@ -67,8 +77,16 @@ const confettiKeyframes = (degrees: number[], height: number | string, width: nu
   };
 };
 
-const confettoStyle = (particle: IParticle, duration: number, force: number, size: number, i: number) => {
-  const rotation = Math.round(Math.random() * (ROTATION_SPEED_MAX - ROTATION_SPEED_MIN) + ROTATION_SPEED_MIN);
+const confettoStyle = (
+  particle: IParticle,
+  duration: number,
+  force: number,
+  size: number,
+  i: number
+) => {
+  const rotation = Math.round(
+    Math.random() * (ROTATION_SPEED_MAX - ROTATION_SPEED_MIN) + ROTATION_SPEED_MIN
+  );
   const rotationIndex = Math.round(Math.random() * (rotationTransforms.length - 1));
   const durationChaos = duration - Math.round(Math.random() * 1000);
   const shouldBeCrazy = Math.random() < CRAZY_PARTICLES_FREQUENCY;
@@ -79,7 +97,10 @@ const confettoStyle = (particle: IParticle, duration: number, force: number, siz
   const x2 = x1 * -1;
   const x3 = x1;
   // x-axis arc of explosion, so 90deg and 270deg particles have curve of 1, 0deg and 180deg have 0
-  const x4 = round(Math.abs(mapRange(Math.abs(rotate(particle.degree, 90) - 180), 0, 180, -1, 1)), 4);
+  const x4 = round(
+    Math.abs(mapRange(Math.abs(rotate(particle.degree, 90) - 180), 0, 180, -1, 1)),
+    4
+  );
 
   // roughly how fast particle reaches end of its explosion curve
   const y1 = round(Math.random() * BEZIER_MEDIAN, 4);
@@ -88,7 +109,10 @@ const confettoStyle = (particle: IParticle, duration: number, force: number, siz
   // roughly how soon the particle transitions from explosion to free-fall
   const y3 = BEZIER_MEDIAN;
   // roughly the ease of free-fall
-  const y4 = round(Math.max(mapRange(Math.abs(particle.degree - 180), 0, 180, force, -force), 0), 4);
+  const y4 = round(
+    Math.max(mapRange(Math.abs(particle.degree - 180), 0, 180, force, -force), 0),
+    4
+  );
 
   return {
     [`&#confetti-particle-${i}`]: {
@@ -107,7 +131,14 @@ const confettoStyle = (particle: IParticle, duration: number, force: number, siz
   };
 };
 
-const useStyles = ({ particles, duration, height, width, force, particleSize }: IParticlesProps) => {
+const useStyles = ({
+  particles,
+  duration,
+  height,
+  width,
+  force,
+  particleSize,
+}: IParticlesProps) => {
   const confettiStyles = particles.reduce(
     (acc, particle, i) => ({
       ...acc,

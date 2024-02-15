@@ -1,6 +1,6 @@
 {
   "name": "react-confetti-explosion",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "author": "Ethan Herr <herrethan@gmail.com>",
   "description": "A lightweight css-animation based confetti exploder for React",
   "license": "MIT",
@@ -24,7 +24,6 @@
     "react-dom": "^18.x"
   },
   "dependencies": {
-    "lodash": "^4.17.21",
     "react-jss": "^10.9.2"
   },
   "scripts": {

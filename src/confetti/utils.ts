@@ -1,5 +1,3 @@
-import isEqual from 'lodash/isEqual';
-
 type Rotate3dTransform = [number, number, number];
 
 export const mapRange = (value: number, x1: number, y1: number, x2: number, y2: number) =>
@@ -25,6 +23,20 @@ export const rotationTransforms: Rotate3dTransform[] = [
   [0, 1, 0],
   zAxisRotation,
 ];
+
+function isEqual(arr1: [number, number, number], arr2: [number, number, number]) {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr1[i] !== arr2[i]) {
+      return false;
+    }
+  }
+
+  return true;
+}
 
 export const shouldBeCircle = (rotationIndex: number) => {
   return !isEqual(rotationTransforms[rotationIndex], zAxisRotation) && coinFlip();
