@@ -1,10 +1,10 @@
 {
-  "name": "react-confetti-explosion",
+  "name": "mighty-peach/react-confetti-explosion-lodashless",
   "version": "2.2.0",
   "author": "Ethan Herr <herrethan@gmail.com>",
   "description": "A lightweight css-animation based confetti exploder for React",
   "license": "MIT",
-  "homepage": "https://github.com/herrethan/react-confetti-explosion",
+  "homepage": "https://github.com/mighty-peach/react-confetti-explosion",
   "private": false,
   "keywords": [
     "confetti",
